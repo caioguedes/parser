@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SalePatternParser implements PatternParser<Sale> {
-  private static final String LINE_ITEM_PATTERN = "((\\d)-(\\d)-([0-9]*\\.?[0-9]))";
+  private static final String LINE_ITEM_PATTERN = "((\\d+)-(\\d+)-([0-9]*\\.?[0-9]+))";
   private static final String LINE_PATTERN = "003ç(\\d+)ç(.+)ç([a-zA-Z].+)";
 
   public boolean check(String text) {
@@ -36,6 +36,6 @@ public class SalePatternParser implements PatternParser<Sale> {
       matcherItems.end();
     }
 
-    return new Sale(Long.parseLong(matcher.group(1)), items, matcher.group(3));
+    return new Sale(matcher.group(1), items, matcher.group(3));
   }
 }

@@ -33,10 +33,14 @@ public class SalePatternParserTest {
   public void shouldReturnValidEntityWithGivenText() {
     SalePatternParser format = new SalePatternParser();
 
-    Sale sale = format.parse("003ç123ç[1-1-1,1-1-21]çSeller With Space");
+    Sale sale = format.parse("003ç123ç[1-10-100,2-30-2.50,3-40-3.10]çSeller With Space");
 
-    assertEquals(sale.getId(), 123L);
+    assertEquals(sale.getId(), "123");
     assertEquals(sale.getSellerName(), "Seller With Space");
-    assertThat(sale.getItems(), containsInAnyOrder(new SaleItem(1, 1, 1.0), new SaleItem(1, 1, 21.0)));
+    assertThat(sale.getItems(), containsInAnyOrder(
+        new SaleItem(1, 10, 100),
+        new SaleItem(2, 30, 2.50),
+        new SaleItem(3, 40, 3.10)
+    ));
   }
 }
