@@ -34,8 +34,8 @@ public class CustomerPatternParserTest {
 
     Customer customer = format.parse("002ç00100200300405çCustomer Wiçth SpaceçBusiness Area");
 
-    assertEquals(customer.getDocument(), "00100200300405");
-    assertEquals(customer.getName(), "Customer Wiçth Space");
-    assertEquals(customer.getBusinessArea(), "Business Area");
+    assertEquals("00100200300405", customer.getDocument());
+    assertEquals("Customer Wiçth Space", customer.getName());
+    assertEquals("Business Area", customer.getBusinessArea());
   }
 }

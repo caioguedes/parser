@@ -35,8 +35,8 @@ public class SalePatternParserTest {
 
     Sale sale = format.parse("003ç123ç[1-10-100,2-30-2.50,3-40-3.10]çSeller With Space");
 
-    assertEquals(sale.getId(), "123");
-    assertEquals(sale.getSellerName(), "Seller With Space");
+    assertEquals("123", sale.getId());
+    assertEquals("Seller With Space", sale.getSellerName());
     assertThat(sale.getItems(), containsInAnyOrder(
         new SaleItem(1, 10, 100),
         new SaleItem(2, 30, 2.50),

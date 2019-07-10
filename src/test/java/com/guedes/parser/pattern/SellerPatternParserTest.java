@@ -34,8 +34,8 @@ public class SellerPatternParserTest {
 
     Seller seller = format.parse("001ç0010020030çSeller Wiçth Spaceç1235.5");
 
-    assertEquals(seller.getDocument(), "0010020030");
-    assertEquals(seller.getName(), "Seller Wiçth Space");
-    assertEquals(seller.getSalary(), 1235.5d, 0.001);
+    assertEquals("0010020030", seller.getDocument());
+    assertEquals("Seller Wiçth Space", seller.getName());
+    assertEquals(1235.5d, seller.getSalary(), 0.001);
   }
 }
