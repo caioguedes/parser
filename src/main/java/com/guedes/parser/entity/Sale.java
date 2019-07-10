@@ -26,6 +26,10 @@ public class Sale {
     return sellerName;
   }
 
+  public double getTotal() {
+    return this.items.stream().mapToDouble(SaleItem::getTotal).sum();
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

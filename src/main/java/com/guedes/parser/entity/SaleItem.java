@@ -25,6 +25,10 @@ public class SaleItem {
     return price;
   }
 
+  public double getTotal() {
+    return this.quantity * this.price;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
