@@ -6,7 +6,7 @@ import com.guedes.parser.entity.Seller;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SalesFileProcessorOutput {
+public class SalesReportOutput {
   private List<Customer> customers = new ArrayList<>();
   private List<Seller> sellers = new ArrayList<>();
   private List<Sale> sales = new ArrayList<>();

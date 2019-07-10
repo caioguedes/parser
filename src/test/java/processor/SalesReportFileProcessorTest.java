@@ -6,11 +6,11 @@ import com.guedes.parser.entity.Customer;
 import com.guedes.parser.entity.Sale;
 import com.guedes.parser.entity.SaleItem;
 import com.guedes.parser.entity.Seller;
-import com.guedes.parser.output.SalesFileProcessorOutput;
+import com.guedes.parser.output.SalesReportOutput;
 import com.guedes.parser.pattern.CustomerPatternParser;
 import com.guedes.parser.pattern.SalePatternParser;
 import com.guedes.parser.pattern.SellerPatternParser;
-import com.guedes.parser.processor.SalesFileProcessor;
+import com.guedes.parser.processor.SalesReportFileProcessor;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,18 +24,18 @@ import org.junit.runners.JUnit4;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
 @RunWith(JUnit4.class)
-public class SalesFileProcessorTest {
+public class SalesReportFileProcessorTest {
 
   @Test
   public void shouldReturnSalesReportOutputWithGivenInput() throws Exception {
-    SalesFileProcessor processor = new SalesFileProcessor(
+    SalesReportFileProcessor processor = new SalesReportFileProcessor(
         new CustomerPatternParser(),
         new SellerPatternParser(),
         new SalePatternParser()
     );
 
     Path fixture = createFixtureFile();
-    SalesFileProcessorOutput output = processor.process(fixture);
+    SalesReportOutput output = processor.process(fixture);
 
     assertThat(output.getCustomers(), containsInAnyOrder(
         new Customer("2345675434544345", "Jose da Silva", "Rural"),
