@@ -30,10 +30,20 @@ public class ParserApplication implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     logger.info("Starting Parser Application");
-    logger.info("Watching '/data/in' directory....");
 
-    Path inputDirectory = Paths.get("data/in/");
-    Path outputDirectory = Paths.get("data/out/");
+
+    Path inputDirectory;
+    Path outputDirectory;
+
+    if (args.length > 1) {
+      inputDirectory = Paths.get(args[0]);
+      outputDirectory = Paths.get(args[1]);
+    } else {
+      inputDirectory = Paths.get("data/in/");
+      outputDirectory = Paths.get("data/out/");
+    }
+
+    logger.info("Watching [{}] directory....", inputDirectory.getFileName().toAbsolutePath());
 
     DirectoryWatcherService watcher = new DirectoryWatcherService(logger);
     watcher.start(
