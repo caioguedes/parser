@@ -1,24 +1,24 @@
 package com.guedes.parser.output;
 
 public class SalesResumeOutput {
-  private int customersTotal;
-  private int sellersTotal;
+  private long customersTotal;
+  private long sellersTotal;
   private String bestSale;
   private String worstSalesman;
 
-  public int getCustomersTotal() {
+  public long getCustomersTotal() {
     return customersTotal;
   }
 
-  public void setCustomersTotal(int customersTotal) {
+  public void setCustomersTotal(long customersTotal) {
     this.customersTotal = customersTotal;
   }
 
-  public int getSellersTotal() {
+  public long getSellersTotal() {
     return sellersTotal;
   }
 
-  public void setSellersTotal(int sellersTotal) {
+  public void setSellersTotal(long sellersTotal) {
     this.sellersTotal = sellersTotal;
   }
 

@@ -1,6 +1,8 @@
 package com.guedes.parser.pattern;
 
-public interface PatternParser<T> {
-  public boolean check(String text);
-  public T parse(String text);
+import com.guedes.parser.entity.Entity;
+
+public interface PatternParser<T extends Entity> {
+  boolean check(String text);
+  T parse(String text);
 }

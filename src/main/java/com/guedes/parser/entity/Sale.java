@@ -3,7 +3,7 @@ package com.guedes.parser.entity;
 import java.util.List;
 import java.util.Objects;
 
-public class Sale {
+public class Sale extends Entity {
   private final String id;
   private final List<SaleItem> items;
   private final String sellerName;

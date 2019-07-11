@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.guedes.parser.pattern.CustomerPatternParser;
+import com.guedes.parser.pattern.PatternParserFactory;
 import com.guedes.parser.pattern.SalePatternParser;
 import com.guedes.parser.pattern.SellerPatternParser;
 import com.guedes.parser.processor.SalesReportFileProcessor;
@@ -24,8 +25,7 @@ public class SalesReportServiceTest {
     Path inputFile = this.createFixtureFile();
 
     SalesReportFileProcessor salesReportFileProcessor =
-        new SalesReportFileProcessor(
-            new CustomerPatternParser(), new SellerPatternParser(), new SalePatternParser());
+        new SalesReportFileProcessor(new PatternParserFactory());
 
     SalesReportService service =
         new SalesReportService(salesReportFileProcessor, new SalesResumeProcessor());

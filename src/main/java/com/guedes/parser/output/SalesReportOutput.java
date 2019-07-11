@@ -1,37 +1,16 @@
 package com.guedes.parser.output;
 
-import com.guedes.parser.entity.Customer;
-import com.guedes.parser.entity.Sale;
-import com.guedes.parser.entity.Seller;
-import java.util.ArrayList;
+import com.guedes.parser.entity.Entity;
 import java.util.List;
 
 public class SalesReportOutput {
-  private List<Customer> customers = new ArrayList<>();
-  private List<Seller> sellers = new ArrayList<>();
-  private List<Sale> sales = new ArrayList<>();
+  private final List<? extends Entity> entities;
 
-  public List<Customer> getCustomers() {
-    return customers;
+  public SalesReportOutput(List<? extends Entity> entities) {
+    this.entities = entities;
   }
 
-  public void setCustomers(List<Customer> customers) {
-    this.customers = customers;
-  }
-
-  public List<Seller> getSellers() {
-    return sellers;
-  }
-
-  public void setSellers(List<Seller> sellers) {
-    this.sellers = sellers;
-  }
-
-  public List<Sale> getSales() {
-    return sales;
-  }
-
-  public void setSales(List<Sale> sales) {
-    this.sales = sales;
+  public List<? extends Entity> getEntities() {
+    return this.entities;
   }
 }

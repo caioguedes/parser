@@ -2,7 +2,7 @@ package com.guedes.parser.entity;
 
 import java.util.Objects;
 
-public class SaleItem {
+public class SaleItem extends Entity {
   private final long id;
   private final long quantity;
   private final double price;

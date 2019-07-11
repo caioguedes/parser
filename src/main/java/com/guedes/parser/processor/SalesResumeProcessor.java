@@ -1,6 +1,9 @@
 package com.guedes.parser.processor;
 
+import com.guedes.parser.entity.Customer;
+import com.guedes.parser.entity.Entity;
 import com.guedes.parser.entity.Sale;
+import com.guedes.parser.entity.Seller;
 import com.guedes.parser.output.SalesReportOutput;
 import com.guedes.parser.output.SalesResumeOutput;
 import java.util.Comparator;
@@ -13,10 +16,23 @@ public class SalesResumeProcessor {
   public SalesResumeOutput process(SalesReportOutput salesReport) {
     SalesResumeOutput output = new SalesResumeOutput();
 
+    long customersTotal =
+        salesReport.getEntities().parallelStream().filter(e -> e instanceof Customer).count();
+
+    long sellersTotal =
+        salesReport.getEntities().parallelStream().filter(e -> e instanceof Seller).count();
+
     Optional<Sale> bestSale =
-        salesReport.getSales().stream().max(Comparator.comparing(Sale::getTotal));
+        salesReport.getEntities().stream()
+            .filter(e -> e instanceof Sale)
+            .map(e -> (Sale) e)
+            .max(Comparator.comparing(Sale::getTotal));
+
     Optional<Sale> worstSale =
-        salesReport.getSales().stream().min(Comparator.comparing(Sale::getTotal));
+        salesReport.getEntities().stream()
+            .filter(e -> e instanceof Sale)
+            .map(e -> (Sale) e)
+            .min(Comparator.comparing(Sale::getTotal));
 
     if (bestSale.isPresent()) {
       output.setBestSale(bestSale.get().getId());
@@ -26,8 +42,8 @@ public class SalesResumeProcessor {
       output.setWorstSalesman(worstSale.get().getSellerName());
     }
 
-    output.setCustomersTotal(salesReport.getCustomers().size());
-    output.setSellersTotal(salesReport.getSellers().size());
+    output.setCustomersTotal(customersTotal);
+    output.setSellersTotal(sellersTotal);
 
     return output;
   }

@@ -19,19 +19,12 @@ public class SalesResumeProcessorTest {
 
   @Test
   public void shouldReturnSalesResumeOutputWithComputedTotals() {
-    SalesReportOutput salesReport = new SalesReportOutput();
-    salesReport.setCustomers(Arrays.asList(
+    SalesReportOutput salesReport = new SalesReportOutput(Arrays.asList(
         new Customer("2345675433444345", "Eduardo Pereira", "Rural"),
         new Customer("2345675433444346", "Maria Madalena", "Rural"),
-        new Customer("2345675433444347", "Carlos Costela", "Rural")
-    ));
-
-    salesReport.setSellers(Arrays.asList(
+        new Customer("2345675433444347", "Carlos Costela", "Rural"),
         new Seller("1234567891234", "Pedro", 50000),
-        new Seller("1234567891233", "Almeda", 45125)
-    ));
-
-    salesReport.setSales(Arrays.asList(
+        new Seller("1234567891233", "Almeda", 45125),
         new Sale("01", Arrays.asList(new SaleItem(1, 1, 10)), "Pedro"),
         new Sale("02", Arrays.asList(new SaleItem(1, 1, 10), new SaleItem(2, 10, 10)), "Almeda")
     ));

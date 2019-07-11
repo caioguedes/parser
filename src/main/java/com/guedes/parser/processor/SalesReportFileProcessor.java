@@ -1,51 +1,33 @@
 package com.guedes.parser.processor;
 
-import com.guedes.parser.entity.Customer;
-import com.guedes.parser.entity.Sale;
-import com.guedes.parser.entity.Seller;
+import com.guedes.parser.entity.Entity;
 import com.guedes.parser.output.SalesReportOutput;
-import com.guedes.parser.pattern.PatternParser;
+import com.guedes.parser.pattern.PatternParserFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SalesReportFileProcessor {
-  private PatternParser<Customer> customerParser;
-  private PatternParser<Seller> sellerParser;
-  private PatternParser<Sale> saleParser;
+
+  private PatternParserFactory parserFactory;
 
   @Autowired
-  public SalesReportFileProcessor(
-      PatternParser<Customer> customerParser,
-      PatternParser<Seller> sellerParser,
-      PatternParser<Sale> saleParser) {
-    this.customerParser = customerParser;
-    this.sellerParser = sellerParser;
-    this.saleParser = saleParser;
+  public SalesReportFileProcessor(PatternParserFactory parserFactory) {
+    this.parserFactory = parserFactory;
   }
 
   public SalesReportOutput process(Path input) throws IOException {
-    SalesReportOutput output = new SalesReportOutput();
+    List<Entity> entities =
+        Files.lines(input)
+            .parallel()
+            .map(line -> this.parserFactory.create(line).parse(line))
+            .collect(Collectors.toList());
 
-    Files.lines(input)
-        .forEach(
-            line -> {
-              if (this.saleParser.check(line)) {
-                output.getSales().add(this.saleParser.parse(line));
-              }
-
-              if (this.customerParser.check(line)) {
-                output.getCustomers().add(this.customerParser.parse(line));
-              }
-
-              if (this.sellerParser.check(line)) {
-                output.getSellers().add(this.sellerParser.parse(line));
-              }
-            });
-
-    return output;
+    return new SalesReportOutput(entities);
   }
 }

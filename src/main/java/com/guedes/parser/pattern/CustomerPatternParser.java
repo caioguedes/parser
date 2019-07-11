@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomerPatternParser implements PatternParser<Customer> {
-  private static final String LINE_PATTERN = "002ç(\\d+)ç([a-zA-z].+)ç([a-zA-z].+)";
+  public static final String LINE_PATTERN = "002ç(\\d+)ç([a-zA-z].+)ç([a-zA-z].+)";
 
+  @Override
   public boolean check(String text) {
     return Pattern.matches(LINE_PATTERN, text);
   }

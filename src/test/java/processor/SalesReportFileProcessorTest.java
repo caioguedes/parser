@@ -7,9 +7,7 @@ import com.guedes.parser.entity.Sale;
 import com.guedes.parser.entity.SaleItem;
 import com.guedes.parser.entity.Seller;
 import com.guedes.parser.output.SalesReportOutput;
-import com.guedes.parser.pattern.CustomerPatternParser;
-import com.guedes.parser.pattern.SalePatternParser;
-import com.guedes.parser.pattern.SellerPatternParser;
+import com.guedes.parser.pattern.PatternParserFactory;
 import com.guedes.parser.processor.SalesReportFileProcessor;
 
 import java.io.IOException;
@@ -28,24 +26,10 @@ public class SalesReportFileProcessorTest {
 
   @Test
   public void shouldReturnSalesReportOutputWithGivenInput() throws Exception {
-    SalesReportFileProcessor processor = new SalesReportFileProcessor(
-        new CustomerPatternParser(),
-        new SellerPatternParser(),
-        new SalePatternParser()
-    );
+    SalesReportFileProcessor processor = new SalesReportFileProcessor(new PatternParserFactory());
 
     Path fixture = createFixtureFile();
     SalesReportOutput output = processor.process(fixture);
-
-    assertThat(output.getCustomers(), containsInAnyOrder(
-        new Customer("2345675434544345", "Jose da Silva", "Rural"),
-        new Customer("2345675433444345", "Eduardo Pereira", "Rural")
-    ));
-
-    assertThat(output.getSellers(), containsInAnyOrder(
-        new Seller("1234567891234", "Pedro", 50000d),
-        new Seller("3245678865434", "Paulo", 40000.99)
-    ));
 
     List<SaleItem> saleItems10 = Arrays.asList(
         new SaleItem(1, 10, 100),
@@ -59,7 +43,11 @@ public class SalesReportFileProcessorTest {
         new SaleItem(3, 40, 0.10)
     );
 
-    assertThat(output.getSales(), containsInAnyOrder(
+    assertThat(output.getEntities(), containsInAnyOrder(
+        new Customer("2345675434544345", "Jose da Silva", "Rural"),
+        new Customer("2345675433444345", "Eduardo Pereira", "Rural"),
+        new Seller("1234567891234", "Pedro", 50000d),
+        new Seller("3245678865434", "Paulo", 40000.99),
         new Sale("10", saleItems10, "Pedro"),
         new Sale("08", saleItems08, "Paulo")
     ));

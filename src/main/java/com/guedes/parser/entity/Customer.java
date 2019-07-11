@@ -2,7 +2,7 @@ package com.guedes.parser.entity;
 
 import java.util.Objects;
 
-public class Customer {
+public class Customer extends Entity {
   private String document;
   private String name;
   private String businessArea;
