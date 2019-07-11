@@ -18,7 +18,10 @@ public class SalesReportFileProcessor {
   private PatternParser<Sale> saleParser;
 
   @Autowired
-  public SalesReportFileProcessor(PatternParser<Customer> customerParser, PatternParser<Seller> sellerParser, PatternParser<Sale> saleParser) {
+  public SalesReportFileProcessor(
+      PatternParser<Customer> customerParser,
+      PatternParser<Seller> sellerParser,
+      PatternParser<Sale> saleParser) {
     this.customerParser = customerParser;
     this.sellerParser = sellerParser;
     this.saleParser = saleParser;
@@ -27,19 +30,21 @@ public class SalesReportFileProcessor {
   public SalesReportOutput process(Path input) throws IOException {
     SalesReportOutput output = new SalesReportOutput();
 
-    Files.lines(input).forEach(line -> {
-      if (this.saleParser.check(line)) {
-        output.getSales().add(this.saleParser.parse(line));
-      }
+    Files.lines(input)
+        .forEach(
+            line -> {
+              if (this.saleParser.check(line)) {
+                output.getSales().add(this.saleParser.parse(line));
+              }
 
-      if (this.customerParser.check(line)) {
-        output.getCustomers().add(this.customerParser.parse(line));
-      }
+              if (this.customerParser.check(line)) {
+                output.getCustomers().add(this.customerParser.parse(line));
+              }
 
-      if (this.sellerParser.check(line)) {
-        output.getSellers().add(this.sellerParser.parse(line));
-      }
-    });
+              if (this.sellerParser.check(line)) {
+                output.getSellers().add(this.sellerParser.parse(line));
+              }
+            });
 
     return output;
   }
