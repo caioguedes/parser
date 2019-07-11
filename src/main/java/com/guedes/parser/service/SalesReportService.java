@@ -20,7 +20,12 @@ public class SalesReportService {
     this.salesResumeProcessor = salesResumeProcessor;
   }
 
-  public Path generate(Path file, Path outputPath) throws IOException {
+  public Path generate(Path file, Path outputPath) throws RuntimeException, IOException {
+    if (!file.getFileName().toString().endsWith(".dat")) {
+      throw new RuntimeException(
+          "File format not supported. File: " + file.getFileName().toString());
+    }
+
     SalesReportOutput salesReportOutput = this.salesReportProcessor.process(file);
     SalesResumeOutput salesResumeOutput = this.salesResumeProcessor.process(salesReportOutput);
 
@@ -33,13 +38,7 @@ public class SalesReportService {
                 String.format("Worst Salesman Name: %s\n", salesResumeOutput.getWorstSalesman()))
             .toString();
 
-
     String outputFileName = file.getFileName().toString().replace(".dat", ".done.dat");
-    Path output =
-        Files.write(
-            outputPath.resolve(outputFileName),
-            content.getBytes());
-
-    return output;
+    return Files.write(outputPath.resolve(outputFileName), content.getBytes());
   }
 }
